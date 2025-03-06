@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SoleMates</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    body{
+        font-family: 'Arial Rounded MT Bold',Arial, sans-serif;
+        line-height: 1.6;
+        color:#333;
+        padding-top: 80px;
+    }
+    .navbar{
+        position: fixed;
+        top: 0;
+        width: 100%;
+        background: rgba(0,0,0,0.9);  
+        padding: 15px 20px; 
+        display: flex;   
+        justify-content: space-between;
+        align-items: center ;
+        transition: all 0.4 cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 1000;
+        backdrop-filter: blur(10px);
+        }
+    .navbar.scrolled{
+        background: rgba(255,255,255,0.95);
+        box-shadow: 0 4px 30px rgba(0,0,0,0.1);
+    }
+    .logo{
+        color: white;
+        font-size: 1.8rem;
+        font-weight: bold;
+        text-decoration: none;
+        margin-left: 30px;
+    }
+    .logo span{
+        color: #ff6b6b;
+    }
+    .nav-links{
+        display: flex;
+        gap: 30px;
+        margin-right: 50px;
+    }
+    .navbar a{
+        text-decoration: none;
+        color: white;
+        padding: 10px 15px;
+        transition: all 0.3s;
+        position: relative;
+        font-weight: 500;
+    }
+    .navbar.scrolled a{
+        color: #333;
+    }
+    .navbar a::after{
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: 0;
+        left: 0;
+        background-color: #ff6b6b;
+        transition: width 0.3s ease;
+    }
+    .navbar a:hover::after{
+        width: 100%;
+    }
+    .navbar a:hover{
+        color: #ff6b6b;
+    }
+    .hero{
+        height: 100vh;
+        background: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)),
+                        url('https://source.unsplash.com/1600x900/?shoes') no-repeat center/cover;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 20px;
+    }
+    .hero-content{
+        max-width: 800px;
+        padding: 40px;
+        background: rgba(0,0,0,0.7);
+        border-radius: 20px;
+        backdrop-filter: blur(5px);
+        color: white;
+    }
+    .hero h1{
+        font-size: 3.5rem;
+        margin-bottom: 20px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+
+    }
+    .content{
+        padding: 100px 20px;
+        background: #f8f9fa;
+    }
+    .section-title{
+        text-align: center;
+        font-size: 2.5rem;
+        margin-bottom: 50px;
+        position: relative;
+        color: #2c3e50;
+
+    }
+    .section-title::after{
+        content: '';
+        width: 100px;
+        height: 4px;
+        background: #ff6b6b;
+        position: absolute;
+        bottom: -20px;
+        left: 50%;
+        transform: translateX(-50%);
+        border-radius: 2px;
+    }
+    .product-grid{
+        display: grid;
+        grid-template-columns: repeat(auto-fit,minmax(300px,1fr));
+        gap: 30px;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    .product{
+        background: white;
+        padding: 25px;
+        border-radius: 15px;box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        transition: transform 0.3s , box-shadow 0.3s;
+        overflow: hidden;
+        position: relative;
+    }
+    .product:hover{
+        transform: translateY(-10px);
+        box-shadow: 0 15px 40px rgba(0,0,0,0.15) ;
+    }
+    .product img{
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+        border-radius: 10px;
+        margin-bottom: 15px;
+        transition: transform 0.3s;
+    }
+    .product:hover img{
+        transform: scale(1.05);
+
+    }
+    .price{
+        font-size: 1.3rem;
+        color: #27ae60;
+        font-weight: bold;
+        margin: 15px 0;
+    }
+    .btn{
+        display: inline-block;
+        padding: 12px 30px;
+        background: #ff6b6b;
+        color: white;
+        border-radius: 25px;
+        text-decoration: none;
+        transition: all 0.3s;
+        border: none;
+        cursor: pointer;
+        font-weight:500 ;
+    }
+    .btn:hover{
+        background: #fd5252;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(255,107,107,0.3);
+    }
+    footer{
+        background: #2c3e50;
+        color: white;
+        padding: 60px 20px;
+        margin-top: 50px;
+    }
+    .footer-content{
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+        gap: 40px;
+    }
+    .footer-section{
+        padding: 20px;
+    }
+    .footer-section h3{
+        color: #ff6b6b;
+        margin-bottom: 25px;
+        font-size: 1.4rem;
+    }
+    .footer-section p{
+        margin: 10px 0;
+        opacity: 0.9;
+    }
+    .footer-section a{
+        color: white;
+        text-decoration: none;
+        transition: color 0.3s;
+    }
+    .footer-section a:hover{
+        color: #ff6b6b;
+    }
+    .footer-bottom{
+        text-align: center;
+        padding-top: 40px;
+        margin-top: 40px;
+        border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    .social-links a{
+        font-size: 1.5rem;
+    }
+    .scroll-top{
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background: #ff6b6b;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        opacity: 0;
+        transition: all 0.3s;
+        color: white;
+        font-size: 1.2rem;
+    }
+    .scroll-top.show{
+        opacity: 1;
+    }
+
+    @media(max-width: 768px){
+        .nav-links{
+            display: none;
+
+        }
+        .hero h1{
+            font-size: 2.5rem;
+        }
+        .product-grid{
+            grid-template-columns: 1fr;
+        }
+        .footer-content{
+            grid-template-columns: 1fr ;
+        }
+    }
+</style>
+</head>
+<body>
+    <nav class="navbar" id="navbar">
+        <a href="#" class="logo">Sole<span>Mate</span></a>
+        <div class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#products">Products</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Step Into Style</h1>
+            <p>Discover Premium Footwear</p>
+            <a href="#products" class="btn">Explore Collection</a>
+        </div>
+    </section>
+    <section class="content" id="products">
+        <h2 class="section-title">Featured Collection</h2>
+        <div class="product-grid">
+            <div class="product">
+                <img src="air-jordan-4-retro-big-kids-shoes-vpr7sr.png" alt="Sneakers">
+                <h3>Urban Sneakers</h3>
+                <div class="rating">4.5</div>
+                <P>Premium Comfort technology with breathable mesh design</P>
+                <div class="price">Rs.999</div>
+                <a href="#" class="btn">Add to Cart</a>
+            </div>
+            <div class="product">
+                <img src="photo-1610897600804-c36e2336ad3a.jpg" alt="Sneakers">
+                <h3>Adventure Boots</h3>
+                <div class="rating">5</div>
+                <P>Waterproof Hiking books with advanced traction System</P>
+                <div class="price">Rs.899</div>
+                <a href="#" class="btn">Add to Cart</a>
+            </div>
+            <div class="product">
+                <img src="air.jpg" alt="Sneakers">
+                <h3>Air Jordans</h3>
+                <div class="rating">4.5</div>
+                <P>Best for casual use</P>
+                <div class="price">Rs.999</div>
+                <a href="#" class="btn">Add to Cart</a>
+            </div>
+
+        </div>
+    </section>
+    <section class="content" id="about">
+        <h2 class="section-title">About Us</h2>
+        <div class="about-content">
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem ratione nam quo quibusdam iusto saepe? Tempora, alias praesentium! Illo aliquid vero libero, aspernatur fugit placeat ex? Minima, ut neque non sunt voluptatem laboriosam quo placeat aliquid praesentium vel rerum ea mollitia quaerat facilis nam et. Autem fugiat aspernatur exercitationem libero distinctio eligendi aperiam, nobis ipsum eveniet dignissimos!
+
+            </p><br>
+            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Odio provident nemo aperiam, nihil earum placeat quas mollitia facere inventore rem vitae aliquid molestias sed aspernatur quia nam?</p>
+        </div>
+    </section>
+    <footer id="contact">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About SoleMates</h3>
+                <p>Premium Footwear since 2021</p>
+                <p>Ethically Produced</p>
+                <p>Award-winning design</p>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p><i class="fas fa-map-marker-alt"></i>123 Shoe Street,Mumbai</p>
+                <p><i class="fas fa-phone"></i>9876543210</p>
+                <p><i class="fas fa-envelope"></i>contact@solemate.com</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2021 SoleMates. All rights reserved</p>
+            <p><a href="#">Privacy Poloicy</a> |<a href="#">Terms Of service</a></p>
+        </div>
+    </footer>
+    <div class="scroll-top">&#8593;</div>
+    <script>
+        window.addEventListener('scroll',() => {
+            console.log("Scrolling Detected");
+            const navbar=document.getElementById('navbar');
+            navbar.classList.toggle('scrolled',window.scrollY>50);
+        
+        const scrollTop=document.querySelector('.scroll-top');
+        scrollTop.classList.toggle('show',window.scrollY>500);
+    });
+    document.querySelectorAll('a[href^="#"]').forEach(anchor =>{
+        anchor.addEventListener('click',function(e){
+            e.preventDefault();
+            const target=document.querySelector(this.getAttribute('href'));
+            if(target){
+                target.scrollIntoView({
+                    behavior:'smooth',
+                    block:'start'
+                });
+            }
+        });
+    });
+    document.querySelector('.scroll-top').addEventListener('click',()=>{
+        window.scrollTo({
+            top:0,
+            behavior:'smooth'
+        });
+    });
+    </script>
+
+</body>
+</html>
